@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store'
 import HomeView from '../views/HomeView.vue'
 
 import SignUpView from '../views/SignUpView.vue'
@@ -33,18 +34,32 @@ const routes = [
   {
     path: '/dashboard',
     name: 'DashboardView',
-    component: DashboardView
+    component: DashboardView,
+    meta: {
+      requireLogin:true
+    }
   },
   {
     path: '/dashboard/my-account',
     name: 'MyAccountView',
-    component: MyAccountView
+    component: MyAccountView,
+    meta: {
+      requireLogin:true
+    }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to,from, next) =>{
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated){
+    next('/log-in')
+  }else{
+    next()
+  }
 })
 
 export default router
