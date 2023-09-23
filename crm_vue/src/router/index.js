@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import SignUpView from '../views/SignUpView.vue'
 import LogInView from '../views/LogInView.vue'
 import DashboardView from '../views/dashboard/DashboardView.vue'
+import MyAccountView from '../views/dashboard/MyAccountView.vue'
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
     path: '/dashboard',
     name: 'DashboardView',
     component: DashboardView
+  },
+  {
+    path: '/dashboard/my-account',
+    name: 'MyAccountView',
+    component: MyAccountView
   },
 ]
 
