@@ -59,7 +59,8 @@
             }
         },
         methods:{
-            submitForm(){
+            async submitForm(){
+                
                 this.errors = []
 
                 if (this.username === '') {
@@ -75,12 +76,13 @@
 
                 }
                 if (!this.errors.length){
+                    this.$store.commit('setIsLoading', true)
                     const formData = {
                         username: this.username,
                         password: this.password1
                     }
 
-                    axios
+                    await axios
                         .post('/api/v1/users/', formData)
                         .then(response => {
                             toast({
@@ -104,6 +106,8 @@
                                 this.errors.push('Something went wrong. Please try again!')
                             }
                         })
+                
+                this.$store.commit('setIsLoading', false)
                 }
             }
         }
